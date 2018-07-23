@@ -11,4 +11,14 @@ jobs:
       - run:
           name: Print the Current Time
           command: date
+      - run:
+          name: Print environment
+          command: uname -a
+      - run:
+          name: Failing step
+          command: "false"
+      - run:
+          name: Succeeding step
+          command: "true"
+
 
