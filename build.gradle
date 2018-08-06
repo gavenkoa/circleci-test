@@ -64,6 +64,10 @@ publishing {
                 password "password"
             }
         }
+        // if (project.version.endsWith('-SNAPSHOT'))
+        //     url "http://localhost:8081/artifactory/libs-snapshot-local"
+        // else
+        //     url "http://localhost:8081/artifactory/libs-release-local"
     }
 }
 
