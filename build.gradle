@@ -1,0 +1,84 @@
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'ivy-publish'
+    id "com.jfrog.artifactory" version "4.7.5"
+}
+
+group = 'org.example'
+version = '1.0'
+
+publishing {
+    publications {
+        libIvy(IvyPublication) {
+            from components.java
+        }
+        
+        libMvn(MavenPublication) {
+            pom {
+                description = 'Test library'
+                // url = 'http://www.example.com/library'
+                // licenses {
+                //     license {
+                //         name = 'The Apache License, Version 2.0'
+                //         url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                //     }
+                // }
+                // developers {
+                //     developer {
+                //         id = 'gavenkoa'
+                //         name = 'Oleksandr Gavenko'
+                //         email = 'gavenkoa@gmail.com'
+                //     }
+                // }
+                // scm {
+                //     connection = 'scm:git:git://github.com/gavenkoa/circleci-test.git'
+                //     url = 'http://github.com/gavenkoa/circleci-test.git'
+                // }
+            }
+            from components.java
+        }
+    }
+
+    repositories {
+        ivy {
+            name = 'ivyDir'
+            url = "file://${buildDir}/repo-ivy"
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'mvnDir'
+            url = "file://${buildDir}/repo-mvn"
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'mvnArtifactory'
+            url = "http://localhost:8081/artifactory/mvn-local"
+            credentials {
+                username "admin"
+                password "password"
+            }
+        }
+    }
+}
+
+// gradle artifactoryPublish
+artifactory {
+    contextUrl = "http://localhost:8081/artifactory"
+    publish {
+        repository {
+            repoKey = 'mvn-local'
+            username = "admin"
+            password = "password"
+            maven = true
+        }       
+        defaults {
+            publications ('libMvn')
+        }
+    }
+}
