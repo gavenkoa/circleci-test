@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: gradle:jdk8-alpine
     steps:
       - checkout
       - run:
@@ -14,11 +14,14 @@ jobs:
       - run:
           name: Print environment
           command: uname -a
-      - run:
-          name: Failing step
-          command: "false"
+      # - run:
+      #     name: Failing step
+      #     command: "false"
       - run:
           name: Succeeding step
           command: "true"
+      - run:
+          name: Gradle build
+          command: gradle build
 
 
