@@ -55,13 +55,20 @@ publishing {
         }
     }
 
+    // gradle publishLibMvnPublicationToMvnArtifactoryRepository
     repositories {
         maven {
             name = 'mvnArtifactory'
-            url = "http://localhost:8081/artifactory/mvn-local"
+            // url = "http://localhost:8081/artifactory/mvn-local"
+            // credentials {
+            //     username "admin"
+            //     password "password"
+            // }
+
+            url = "https://artifactory.smart-travel.ml/artifactory/maven-release"
             credentials {
-                username "admin"
-                password "password"
+                username "uploader"
+                password "....."
             }
         }
         // if (project.version.endsWith('-SNAPSHOT'))
